@@ -39,54 +39,68 @@ csv_data = ['id', 'Код ICAO', 'Широта', 'Долгота', 'Направ
 
 
 
-for i in content:
-    try:
-        lat, lon = int(content[i][1]), int(content[i][2])
-    except:
-        continue
-    if len(str(i)) == 8:
-        #csv_data += str(i)
-        csv_data.append(str(i))
-        for j in content[i]:
-            #csv_data += (', ' + str(j))
-            csv_data.append(str(j))
-        #csv_data[-1] += '\n'
+
+while True:
+    print("1 - .csv mode \n2 - PostgreSQL mode \nother - stop")
+    menu_var = str(input())
+
+
+    if menu_var == 1:
+        for i in content:
+            try:
+                lat, lon = int(content[i][1]), int(content[i][2])
+            except:
+                continue
+            if len(str(i)) == 8:
+                #csv_data += str(i)
+                csv_data.append(str(i))
+                for j in content[i]:
+                    #csv_data += (', ' + str(j))
+                    csv_data.append(str(j))
+                #csv_data[-1] += '\n'
 
 
 
-counter = 0
-for i in range(0, len(csv_data)):
-    counter += 1
-    if counter != 1 and (counter == 9 or counter == 16 or counter == 17 or counter == 19):
-        csv_data[i] = 'for_delete'
-    if counter == 20:
         counter = 0
-    if csv_data[i] == '':
-        csv_data[i] = 'empty'
-    if csv_data[i] == '\n':
-        csv_data[i] = 'empty\n'
+        for i in range(0, len(csv_data)):
+            counter += 1
+            if counter != 1 and (counter == 9 or counter == 16 or counter == 17 or counter == 19):
+                csv_data[i] = 'for_delete'
+            if counter == 20:
+                counter = 0
+            if csv_data[i] == '':
+                csv_data[i] = 'empty'
+            if csv_data[i] == '\n':
+                csv_data[i] = 'empty\n'
 
-def condition(elem): return elem != 'for_delete'
-filtered_csv_data = filter(condition, csv_data)
-filtered_csv_data = list(filtered_csv_data)
+        def condition(elem): return elem != 'for_delete'
+        filtered_csv_data = filter(condition, csv_data)
+        filtered_csv_data = list(filtered_csv_data)
 
 
 
-string_csv = ''
-counter = 0
-for i in filtered_csv_data:
-    string_csv += i
-    if counter == 15:
-        string_csv += '\n'
+        string_csv = ''
         counter = 0
-        continue
+        for i in filtered_csv_data:
+            string_csv += i
+            if counter == 15:
+                string_csv += '\n'
+                counter = 0
+                continue
+            else:
+                counter += 1
+                string_csv += ', '
+
+
+        with open('flights.csv', 'w', encoding='utf-8') as f:
+            f.write(string_csv)
+        break
+
+    if menu_var == 2:
+        print("plug") #using table feeder here
+        break
+
     else:
-        counter += 1
-        string_csv += ', '
-
-
-with open('flights.csv', 'w', encoding='utf-8') as f:
-    f.write(string_csv)
-
+        break
 
 
