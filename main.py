@@ -98,6 +98,11 @@ while True:
 
     if menu_var == 2:
         print("plug") #using table feeder here
+        #user = str(input('username:'))
+        #password = str(input('password:'))
+        #host = str(input('host:'))
+        #port = str(input('port:'))
+        #table_feeder(username: username, password: password, host: host, port:port)      
         break
 
     else:
