@@ -41,7 +41,7 @@ csv_data = ['id', 'Код ICAO', 'Широта', 'Долгота', 'Направ
 
 
 while True:
-    print("1 - .csv mode \n2 - PostgreSQL mode \nother - stop")
+    print("1 - .csv mode \n2 - PostgreSQL mode \n3 - PostgreSQL mode (new spreadsheet) \nother - stop")
     menu_var = str(input())
 
 
@@ -97,6 +97,7 @@ while True:
         break
 
     if menu_var == 2:
+        flag = 'existing_spreadsheet'
         print("plug") #using table feeder here
         #user = str(input('username:'))
         #password = str(input('password:'))
@@ -104,6 +105,9 @@ while True:
         #port = str(input('port:'))
         #table_feeder(username: username, password: password, host: host, port:port)      
         break
+
+    if menu_var == 3:
+        flag = 'new_spreadsheet'
 
     else:
         break
